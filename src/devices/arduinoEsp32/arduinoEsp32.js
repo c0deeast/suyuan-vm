@@ -1021,6 +1021,32 @@ class OpenBlockArduinoEsp32Device {
                     '---',
                     {
 
+                        opcode: 'esp32SetSCServo',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.pins.esp32SetSCServo',
+                            default: '设置舵机 [STEERINGID] 设置速度 [SPEED] 运行位置 [POSITION] 加速度为 50 ',
+                            description: 'arduinoEsp32 set move'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            //直接设置任意的数字范围貌似比较困难，最多通过menu字段定义特定的范围。
+                            STEERINGID: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            SPEED: {
+                                type: ArgumentType.OTO100_NUMBER,
+                                defaultValue: 1
+                            },
+                            POSITION: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 4095
+                            }
+                        }
+                    },
+                    '---',
+                    {
+
                         opcode: 'esp32AttachInterrupt',
                         text: formatMessage({
                             id: 'arduinoEsp32.pins.esp32AttachInterrupt',
