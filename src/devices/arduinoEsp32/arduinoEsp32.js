@@ -146,14 +146,14 @@ const DataType = {
 /**
  * Manage communication with a Arduino esp32 peripheral over a OpenBlock Link client socket.
  */
-class ArduinoEsp32 extends CommonPeripheral{
+class ArduinoEsp32 extends CommonPeripheral {
     /**
      * Construct a Arduino communication object.
      * @param {Runtime} runtime - the OpenBlock runtime
      * @param {string} deviceId - the id of the extension
      * @param {string} originalDeviceId - the original id of the peripheral, like xxx_arduinoUno
      */
-    constructor (runtime, deviceId, originalDeviceId) {
+    constructor(runtime, deviceId, originalDeviceId) {
         super(runtime, deviceId, originalDeviceId, PNPID_LIST, SERIAL_CONFIG, DIVECE_OPT);
     }
 }
@@ -165,11 +165,11 @@ class OpenBlockArduinoEsp32Device {
     /**
      * @return {string} - the ID of this extension.
      */
-    get DEVICE_ID () {
+    get DEVICE_ID() {
         return 'arduinoEsp32';
     }
 
-    get PINS_MENU () {
+    get PINS_MENU() {
         return [
             {
                 text: 'IO0',
@@ -303,7 +303,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get OUT_PINS_MENU () {
+    get OUT_PINS_MENU() {
         return [
             {
                 text: 'IO0',
@@ -421,7 +421,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get MODE_MENU () {
+    get MODE_MENU() {
         return [
             {
                 text: formatMessage({
@@ -458,7 +458,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get ANALOG_PINS_MENU () {
+    get ANALOG_PINS_MENU() {
         return [
             {
                 text: 'IO0',
@@ -527,7 +527,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get LEVEL_MENU () {
+    get LEVEL_MENU() {
         return [
             {
                 text: formatMessage({
@@ -548,7 +548,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get LEDC_CHANNELS_MENU () {
+    get LEDC_CHANNELS_MENU() {
         return [
             {
                 text: 'CH0 (LT0)',
@@ -617,7 +617,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get DAC_PINS_MENU () {
+    get DAC_PINS_MENU() {
         return [
             {
                 text: 'IO25',
@@ -630,7 +630,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get TOUCH_PINS_MENU () {
+    get TOUCH_PINS_MENU() {
         return [
             {
                 text: 'IO0',
@@ -675,7 +675,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get INTERRUP_MODE_MENU () {
+    get INTERRUP_MODE_MENU() {
         return [
             {
                 text: formatMessage({
@@ -720,7 +720,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get SERIAL_NO_MENU () {
+    get SERIAL_NO_MENU() {
         return [
             {
                 text: '0',
@@ -738,7 +738,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get BAUDTATE_MENU () {
+    get BAUDTATE_MENU() {
         return [
             {
                 text: '4800',
@@ -771,7 +771,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get EOL_MENU () {
+    get EOL_MENU() {
         return [
             {
                 text: formatMessage({
@@ -792,7 +792,7 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
-    get DATA_TYPE_MENU () {
+    get DATA_TYPE_MENU() {
         return [
             {
                 text: formatMessage({
@@ -821,12 +821,42 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
+    //设置关节
+    get ROBOT_JOINT_MENU() {
+        return [
+            {
+                text: '1',
+                value: 1
+            },
+            {
+                text: '2',
+                value: 2
+            },
+            {
+                text: '3',
+                value: 3
+            },
+            {
+                text: '4',
+                value: 4
+            },
+            {
+                text: '5',
+                value: 5
+            },
+            {
+                text: '6',
+                value: 6
+            }
+        ];
+    }
+
     /**
      * Construct a set of Arduino blocks.
      * @param {Runtime} runtime - the OpenBlock runtime.
      * @param {string} originalDeviceId - the original id of the peripheral, like xxx_arduinoUno
      */
-    constructor (runtime, originalDeviceId) {
+    constructor(runtime, originalDeviceId) {
         /**
          * The OpenBlock runtime.
          * @type {Runtime}
@@ -840,7 +870,7 @@ class OpenBlockArduinoEsp32Device {
     /**
      * @returns {Array.<object>} metadata for this extension and its blocks.
      */
-    getInfo () {
+    getInfo() {
         return [
             {
                 id: 'pin',
@@ -1131,9 +1161,9 @@ class OpenBlockArduinoEsp32Device {
 
                 blocks: [
                     {
-                        opcode: 'multiSerialBegin',
+                        opcode: 'esp32SerialBegin',
                         text: formatMessage({
-                            id: 'arduinoEsp32.serial.multiSerialBegin',
+                            id: 'arduinoEsp32.serial.esp32SerialBegin',
                             default: 'serial [NO] begin baudrate [VALUE]',
                             description: 'arduinoEsp32 multi serial begin'
                         }),
@@ -1353,6 +1383,114 @@ class OpenBlockArduinoEsp32Device {
                         items: this.DATA_TYPE_MENU
                     }
                 }
+            },
+            // 机器人积木
+            {
+                id: 'robot',
+                name: formatMessage({
+                    id: 'arduinoEsp32.category.robot',
+                    default: 'ROBOT',
+                    description: 'The name of the arduino esp32 device robot category'
+                }),
+                color1: '#CF63CF',
+                color2: '#C94FC9',
+                color3: '#BD42BD',
+
+                blocks: [
+                    //设置舵机关节、角度、速度
+                    {
+                        opcode: 'steeringGearConfig',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.steeringGearConfig',
+                            default: 'set joint [JOINT] angle [ANGLE] speed [SPEED]',
+                            description: 'arduinoEsp32 robot steeringGear config'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            JOINT: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                menu: 'joint',
+                                defaultValue: '1'
+                            },
+                            ANGLE: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            SPEED: {
+                                type: ArgumentType.OTO100_NUMBER,
+                                defaultValue: '0'
+                            }
+                        },
+                        programMode: [ProgramModeType.UPLOAD]
+                    },
+                    //设置全部舵机角度和速度
+                    {
+                        opcode: 'setServoPosAll',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.setServoPosAll',
+                            default: 'set full joint,joint 1 [ANGLE1] joint 2 [ANGLE2] joint 3 [ANGLE3] joint 4 [ANGLE4] joint 5 [ANGLE5] joint 6 [ANGLE6] speed [SPEED]',
+                            description: 'arduinoEsp32 robot all joint'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            ANGLE1: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            ANGLE2: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            ANGLE3: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            ANGLE4: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            ANGLE5: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            ANGLE6: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            SPEED: {
+                                type: ArgumentType.OTO100_NUMBER,
+                                defaultValue: '0'
+                            }
+                        },
+                        programMode: [ProgramModeType.UPLOAD]
+                    },
+                    //设置夹爪角度和速度
+                    {
+                        opcode: 'setGripper',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.setGripper',
+                            default: 'set gripper angle [ANGLE] speed [SPEED]',
+                            description: 'arduinoEsp32 robot gripper config'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            ANGLE: {
+                                type: ArgumentType.UINT8_NUMBER,
+                                defaultValue: '0'
+                            },
+                            SPEED: {
+                                type: ArgumentType.OTO100_NUMBER,
+                                defaultValue: '0'
+                            }
+                        },
+                        programMode: [ProgramModeType.UPLOAD]
+                    }
+                ],
+                menus: {
+                    joint: {
+                        items: this.ROBOT_JOINT_MENU
+                    }
+                }
             }
         ];
     }
@@ -1362,7 +1500,7 @@ class OpenBlockArduinoEsp32Device {
      * @param {object} args - the block's arguments.
      * @return {Promise} - a Promise that resolves after the set pin mode is done.
      */
-    setPinMode (args) {
+    setPinMode(args) {
         this._peripheral.setPinMode(args.PIN, args.MODE);
         return Promise.resolve();
     }
@@ -1372,7 +1510,7 @@ class OpenBlockArduinoEsp32Device {
      * @param {object} args - the block's arguments.
      * @return {Promise} - a Promise that resolves after the set pin digital out level is done.
      */
-    setDigitalOutput (args) {
+    setDigitalOutput(args) {
         this._peripheral.setDigitalOutput(args.PIN, args.LEVEL);
         return Promise.resolve();
     }
@@ -1382,7 +1520,7 @@ class OpenBlockArduinoEsp32Device {
      * @param {object} args - the block's arguments.
      * @return {Promise} - a Promise that resolves after the set pin pwm out value is done.
      */
-    setPwmOutput (args) {
+    setPwmOutput(args) {
         this._peripheral.setPwmOutput(args.PIN, args.OUT);
         return Promise.resolve();
     }
@@ -1392,7 +1530,7 @@ class OpenBlockArduinoEsp32Device {
      * @param {object} args - the block's arguments.
      * @return {boolean} - true if read high level, false if read low level.
      */
-    readDigitalPin (args) {
+    readDigitalPin(args) {
         return this._peripheral.readDigitalPin(args.PIN);
     }
 
@@ -1401,7 +1539,7 @@ class OpenBlockArduinoEsp32Device {
      * @param {object} args - the block's arguments.
      * @return {number} - analog value fo the pin.
      */
-    readAnalogPin (args) {
+    readAnalogPin(args) {
         return this._peripheral.readAnalogPin(args.PIN);
     }
 
@@ -1410,7 +1548,7 @@ class OpenBlockArduinoEsp32Device {
      * @param {object} args - the block's arguments.
      * @return {Promise} - a Promise that resolves after the set servo out value is done.
      */
-    setServoOutput (args) {
+    setServoOutput(args) {
         this._peripheral.setServoOutput(args.PIN, args.OUT);
         return Promise.resolve();
     }
