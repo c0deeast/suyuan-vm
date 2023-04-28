@@ -1413,11 +1413,11 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: '1'
                             },
                             ANGLE: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             SPEED: {
-                                type: ArgumentType.OTO100_NUMBER,
+                                type: ArgumentType.OTO500_NUMBER,
                                 defaultValue: '0'
                             }
                         },
@@ -1434,31 +1434,31 @@ class OpenBlockArduinoEsp32Device {
                         blockType: BlockType.COMMAND,
                         arguments: {
                             ANGLE1: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             ANGLE2: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             ANGLE3: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             ANGLE4: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             ANGLE5: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             ANGLE6: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             SPEED: {
-                                type: ArgumentType.OTO100_NUMBER,
+                                type: ArgumentType.OTO500_NUMBER,
                                 defaultValue: '0'
                             }
                         },
@@ -1475,11 +1475,11 @@ class OpenBlockArduinoEsp32Device {
                         blockType: BlockType.COMMAND,
                         arguments: {
                             ANGLE: {
-                                type: ArgumentType.UINT8_NUMBER,
+                                type: ArgumentType.HALF_ANGLE,
                                 defaultValue: '0'
                             },
                             SPEED: {
-                                type: ArgumentType.OTO100_NUMBER,
+                                type: ArgumentType.OTO500_NUMBER,
                                 defaultValue: '0'
                             }
                         },

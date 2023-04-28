@@ -114,6 +114,12 @@ const ArgumentTypeMap = (() => {
             fieldName: 'NUM'
         }
     };
+    map[ArgumentType.OTO500_NUMBER] = {
+        shadow: {
+            type: 'math_0to500_number',
+            fieldName: 'NUM'
+        }
+    };
     map[ArgumentType.UINT8_NUMBER] = {
         shadow: {
             type: 'math_uint8_number',

@@ -9,7 +9,7 @@ const maybeFormatMessage = require('../util/maybe-format-message');
 const BlockType = require('./block-type');
 
 // Local resources server address
-const localResourcesServerUrl = 'https://127.0.0.1:20112/';
+const localResourcesServerUrl = 'http://127.0.0.1:20112/';
 
 // These extensions are currently built into the VM repository but should not be loaded at startup.
 // TODO: move these out into a separate repository?
@@ -240,6 +240,7 @@ class ExtensionManager {
                         dev.connectionSmallIconURL = localResourcesServerUrl + dev.connectionSmallIconURL;
                         return dev;
                     });
+                    console.log("vm:getDeviceList",devices)
                     return resolve(devices);
                 }, err => {
                     log.warn(`Can not fetch data from local device server: ${err}`);

@@ -19,7 +19,7 @@ const ArgumentType = {
     COLOR: 'color',
 
     /**
-     * Numeric value with angle picker, value from 0 ~ 180
+     * Numeric value with angle picker, value from -180 ~ 180
      */
     HALF_ANGLE: 'half_angle',
 
@@ -52,6 +52,11 @@ const ArgumentType = {
      * Numeric value with slider field. from 0 to 100 value
      */
     OTO100_NUMBER: '0to100_number',
+
+    /**
+    * Numeric value with slider field. from 0 to 500 value
+    */
+    OTO500_NUMBER: '0to500_number',
 
     /**
      * Numeric value with slider field. from 0 to 255 integer value
