@@ -1059,7 +1059,6 @@ class OpenBlockArduinoEsp32Device {
                         }),
                         blockType: BlockType.COMMAND,
                         arguments: {
-                            //直接设置任意的数字范围貌似比较困难，最多通过menu字段定义特定的范围。
                             STEERINGID: {
                                 type: ArgumentType.NUMBER,
                                 defaultValue: 0
@@ -1096,7 +1095,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: InterrupMode.Rising
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     {
 
@@ -1114,7 +1113,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: Pins.IO2
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     }
                 ],
                 menus: {
@@ -1180,7 +1179,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: Buadrate.B115200
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     {
                         opcode: 'multiSerialPrint',
@@ -1206,7 +1205,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: Eol.Warp
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     {
                         opcode: 'multiSerialAvailable',
@@ -1223,7 +1222,7 @@ class OpenBlockArduinoEsp32Device {
                             }
                         },
                         blockType: BlockType.REPORTER,
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     {
                         opcode: 'multiSerialReadAByte',
@@ -1240,7 +1239,7 @@ class OpenBlockArduinoEsp32Device {
                             }
                         },
                         blockType: BlockType.REPORTER,
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     }
                 ],
                 menus: {
@@ -1297,7 +1296,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: '1000'
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     {
                         opcode: 'dataConstrain',
@@ -1321,7 +1320,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: '100'
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     '---',
                     {
@@ -1343,7 +1342,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: DataType.Integer
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     {
                         opcode: 'dataConvertASCIICharacter',
@@ -1359,7 +1358,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: '97'
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     {
                         opcode: 'dataConvertASCIINumber',
@@ -1375,7 +1374,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: 'a'
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     }
                 ],
                 menus: {
@@ -1421,7 +1420,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: '0'
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     //设置全部舵机角度和速度
                     {
@@ -1462,7 +1461,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: '0'
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     },
                     //设置夹爪角度和速度
                     {
@@ -1483,7 +1482,7 @@ class OpenBlockArduinoEsp32Device {
                                 defaultValue: '0'
                             }
                         },
-                        programMode: [ProgramModeType.UPLOAD]
+                        // programMode: [ProgramModeType.UPLOAD]
                     }
                 ],
                 menus: {
