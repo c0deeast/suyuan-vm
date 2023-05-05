@@ -1,6 +1,6 @@
 {
   "name": "suyuan-vm",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "Virtual Machine for OpenBlock",
   "author": "Massachusetts Institute of Technology",
   "license": "BSD-3-Clause",
@@ -38,7 +38,7 @@
     "diff-match-patch": "1.0.4",
     "format-message": "6.2.1",
     "htmlparser2": "3.10.0",
-    "immutable": "3.8.1",
+    "immutable": "^4.3.0",
     "jszip": "^3.1.5",
     "loadjs": "^4.2.0",
     "minilog": "3.1.0",

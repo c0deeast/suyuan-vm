@@ -77,6 +77,16 @@ const Pins = {
     IO39: '39'
 };
 
+const GripperStatus = {
+    Open: '1',
+    Close: '0'
+};
+
+const CoordinatesMode = {
+    Angular: '0',
+    Linear: '1'
+}
+
 const Level = {
     High: 'HIGH',
     Low: 'LOW'
@@ -851,6 +861,46 @@ class OpenBlockArduinoEsp32Device {
         ];
     }
 
+    get ROBOT_GRIPPER_STATUS_MENU() {
+        return [
+            {
+                text: formatMessage({
+                    id: 'arduinoEsp32.gripperStatus.Open',
+                    default: 'open',
+                    description: 'robot gripper status open'
+                }),
+                value: GripperStatus.Open
+            }, {
+                text: formatMessage({
+                    id: 'arduinoEsp32.gripperStatus.Close',
+                    default: 'close',
+                    description: 'robot gripper status close'
+                }),
+                value: GripperStatus.Close
+            },
+        ]
+    }
+
+    get COORDINATES_MODE_MODE() {
+        return [
+            {
+                text: formatMessage({
+                    id: 'arduinoEsp32.coordinates.Angular',
+                    default: 'angular',
+                    description: 'coordinates mode angular'
+                }),
+                value: CoordinatesMode.Angular
+            }, {
+                text: formatMessage({
+                    id: 'arduinoEsp32.coordinates.Linear',
+                    default: 'linear',
+                    description: 'coordinates mode linear'
+                }),
+                value: CoordinatesMode.Linear
+            },
+        ]
+    }
+
     /**
      * Construct a set of Arduino blocks.
      * @param {Runtime} runtime - the OpenBlock runtime.
@@ -1474,7 +1524,7 @@ class OpenBlockArduinoEsp32Device {
                         blockType: BlockType.COMMAND,
                         arguments: {
                             ANGLE: {
-                                type: ArgumentType.HALF_ANGLE,
+                                type: ArgumentType.OTO100_NUMBER,
                                 defaultValue: '0'
                             },
                             SPEED: {
@@ -1483,11 +1533,119 @@ class OpenBlockArduinoEsp32Device {
                             }
                         },
                         // programMode: [ProgramModeType.UPLOAD]
+                    },
+                    //设置夹爪状态并指定速度
+                    {
+                        opcode: 'setGripperStatus',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.setGripperStatus',
+                            default: 'set gripper status [STATUS] speed [SPEED]',
+                            description: 'arduinoEsp32 robot gripper config'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            STATUS: {
+                                type: ArgumentType.STRING,
+                                menu: 'gripperStatus',
+                                defaultValue: GripperStatus.Open
+                            },
+                            SPEED: {
+                                type: ArgumentType.OTO100_NUMBER,
+                                defaultValue: '0'
+                            }
+                        },
+                    },
+                    //设置夹爪状态并以默认速度执行
+                    {
+                        opcode: 'setGripperStatusDefault',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.setGripperStatusDefault',
+                            default: 'set gripper status [STATUS]',
+                            description: 'arduinoEsp32 robot gripper status by default speed'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            STATUS: {
+                                type: ArgumentType.STRING,
+                                menu: 'gripperStatus',
+                                defaultValue: GripperStatus.Open
+                            }
+                        },
+                    },
+                    //设置坐标积木块
+                    {
+                        opcode: 'setAllCoordinates',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.setAllCoordinates',
+                            default: 'set coordinate x[X] y[Y] z[Z] rx[RX] ry[RY] rz[RZ] speed[SPEED] mode[MODE]',
+                            description: 'arduinoEsp32 robot all coordinates'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            X: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            Y: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            Z: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            RX: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            RY: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            RZ: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            SPEED: {
+                                type: ArgumentType.OTO500_NUMBER,
+                                defaultValue: '0'
+                            },
+                            MODE: {
+                                type: ArgumentType.STRING,
+                                menu: 'coordinatesMode',
+                                defaultValue: CoordinatesMode.Angular
+                            }
+                        },
+                        // programMode: [ProgramModeType.UPLOAD]
+                    },
+                    {
+                        opcode: 'getAllAngle',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.getAllAngle',
+                            default: 'get all angle',
+                            description: 'get all servo angle'
+                        }),
+                        blockType: BlockType.COMMAND
+                    },
+                    {
+                        opcode: 'getAllCoordinates',
+                        text: formatMessage({
+                            id: 'arduinoEsp32.robot.getAllCoordinates',
+                            default: 'get all getAllCoordinates',
+                            description: 'get all getAllCoordinates'
+                        }),
+                        blockType: BlockType.COMMAND
                     }
                 ],
                 menus: {
                     joint: {
                         items: this.ROBOT_JOINT_MENU
+                    },
+                    gripperStatus: {
+                        items: this.ROBOT_GRIPPER_STATUS_MENU
+                    },
+                    coordinatesMode: {
+                        items: this.COORDINATES_MODE_MODE
                     }
                 }
             }
