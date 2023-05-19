@@ -1209,28 +1209,28 @@ class OpenBlockArduinoEsp32Device {
                 color3: '#774DCB',
 
                 blocks: [
-                    {
-                        opcode: 'esp32SerialBegin',
-                        text: formatMessage({
-                            id: 'arduinoEsp32.serial.esp32SerialBegin',
-                            default: 'serial [NO] begin baudrate [VALUE]',
-                            description: 'arduinoEsp32 multi serial begin'
-                        }),
-                        blockType: BlockType.COMMAND,
-                        arguments: {
-                            NO: {
-                                type: ArgumentType.NUMBER,
-                                menu: 'serialNo',
-                                defaultValue: SerialNo.Serial0
-                            },
-                            VALUE: {
-                                type: ArgumentType.STRING,
-                                menu: 'baudrate',
-                                defaultValue: Buadrate.B115200
-                            }
-                        },
-                        // programMode: [ProgramModeType.UPLOAD]
-                    },
+                    // {
+                    //     opcode: 'esp32SerialBegin',
+                    //     text: formatMessage({
+                    //         id: 'arduinoEsp32.serial.esp32SerialBegin',
+                    //         default: 'serial [NO] begin baudrate [VALUE]',
+                    //         description: 'arduinoEsp32 multi serial begin'
+                    //     }),
+                    //     blockType: BlockType.COMMAND,
+                    //     arguments: {
+                    //         NO: {
+                    //             type: ArgumentType.NUMBER,
+                    //             menu: 'serialNo',
+                    //             defaultValue: SerialNo.Serial0
+                    //         },
+                    //         VALUE: {
+                    //             type: ArgumentType.STRING,
+                    //             menu: 'baudrate',
+                    //             defaultValue: Buadrate.B115200
+                    //         }
+                    //     },
+                    //     // programMode: [ProgramModeType.UPLOAD]
+                    // },
                     {
                         opcode: 'multiSerialPrint',
                         text: formatMessage({
