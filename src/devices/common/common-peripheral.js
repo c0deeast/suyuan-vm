@@ -6,7 +6,7 @@ const Base64Util = require('../../util/base64-util');
 /**
  * Manage communication with a common peripheral over a OpenBlock Link client socket.
  */
-class CommonPeripheral{
+class CommonPeripheral {
 
     /**
      * Construct a common communication object.
@@ -17,7 +17,7 @@ class CommonPeripheral{
      * @param {object} serialConfig - the serial config of the peripheral
      * @param {object} diveceOpt - the device optione of the peripheral
      */
-    constructor (runtime, deviceId, originalDeviceId, pnpidList, serialConfig, diveceOpt) {
+    constructor(runtime, deviceId, originalDeviceId, pnpidList, serialConfig, diveceOpt) {
         /**
          * The OpenBlock runtime used to trigger the green flag button.
          * @type {Runtime}
@@ -60,7 +60,7 @@ class CommonPeripheral{
      * Called by the runtime when user wants to upload code to a peripheral.
      * @param {string} code - the code want to upload.
      */
-    upload (code) {
+    upload(code) {
         const base64Str = Buffer.from(code).toString('base64');
         this._serialport.upload(base64Str, this.diveceOpt, 'base64');
     }
@@ -68,14 +68,14 @@ class CommonPeripheral{
     /**
      * Called by the runtime when user wants to upload realtime firmware to a peripheral.
      */
-    uploadFirmware () {
+    uploadFirmware() {
     }
 
-    
+
     /**
      * Called by the runtime when user wants to abort the uploading process.
      */
-    abortUpload () {
+    abortUpload() {
         this._serialport.abortUpload();
     }
 
@@ -84,7 +84,7 @@ class CommonPeripheral{
      * @param {Array.<string>} pnpidList - the array of pnp id list
      * @param {bool} listAll - wether list all connectable device
      */
-    scan (pnpidList, listAll) {
+    scan(pnpidList, listAll) {
         if (this._serialport) {
             this._serialport.disconnect();
         }
@@ -100,20 +100,20 @@ class CommonPeripheral{
      * @param {number} id - the id of the peripheral to connect to.
      * @param {?number} baudrate - the baudrate.
      */
-    connect (id, baudrate = null) {
+    connect(id, baudrate = null) {
         const config = Object.assign({}, this.serialConfig);
         if (baudrate) {
             config.baudRate = baudrate;
         }
         if (this._serialport) {
-            this._serialport.connectPeripheral(id, {config: config});
+            this._serialport.connectPeripheral(id, { config: config });
         }
     }
 
     /**
      * Disconnect from the peripheral.
      */
-    disconnect () {
+    disconnect() {
         if (this._serialport) {
             this._serialport.disconnect();
         }
@@ -124,14 +124,14 @@ class CommonPeripheral{
     /**
      * Reset all the state and timeout/interval ids.
      */
-    reset () {
+    reset() {
     }
 
     /**
      * Return true if connected to the peripheral.
      * @return {boolean} - whether the peripheral is connected.
      */
-    isConnected () {
+    isConnected() {
         let connected = false;
         if (this._serialport) {
             connected = this._serialport.isConnected();
@@ -143,7 +143,7 @@ class CommonPeripheral{
      * Set baudrate of the peripheral serialport.
      * @param {number} baudrate - the baudrate.
      */
-    setBaudrate (baudrate) {
+    setBaudrate(baudrate) {
         this._serialport.setBaudrate(baudrate);
     }
 
@@ -151,10 +151,11 @@ class CommonPeripheral{
      * Write data to the peripheral serialport.
      * @param {string} data - the data to write.
      */
-    write (data) {
+    write(data) {
         if (!this.isConnected()) return;
 
         const base64Str = Buffer.from(data).toString('base64');
+        console.log("vm发送数据(write):", base64Str)
         this._serialport.write(base64Str, 'base64');
     }
 
@@ -162,10 +163,11 @@ class CommonPeripheral{
      * Send a message to the peripheral Serialport socket.
      * @param {Uint8Array} message - the message to write
      */
-    send (message) {
+    send(message) {
         if (!this.isConnected()) return;
 
         const data = Base64Util.uint8ArrayToBase64(message);
+        console.log("vm发送数据(send)", data)
         this._serialport.write(data, 'base64');
     }
 
@@ -173,7 +175,7 @@ class CommonPeripheral{
      * Starts reading data from peripheral after serialport has connected to it.
      * @private
      */
-    _onConnect () {
+    _onConnect() {
         this._serialport.read(this._onMessage);
     }
 
@@ -182,7 +184,7 @@ class CommonPeripheral{
      * @param {object} base64 - the incoming serialport data.
      * @private
      */
-    _onMessage (base64) {
+    _onMessage(base64) {
         const consoleData = Buffer.from(base64, 'base64');
         this._runtime.emit(this._runtime.constructor.PERIPHERAL_RECIVE_DATA, consoleData);
     }
